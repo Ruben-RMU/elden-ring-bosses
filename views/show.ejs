@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/style.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title><%= boss?.name || 'Unknown Boss' %></title>
+</head>
+<body class="bg-gray-100">
+  <nav class="bg-black text-white p-4 text-xl font-bold text-center">
+    <a href="/" class="hover:underline">&larr; Back to Boss List</a>
+  </nav>
+
+  <main class="p-4 flex flex-col md:flex-row gap-6">
+    <aside class="md:w-1/3">
+      <% if (boss?.image && boss.image.startsWith('http')) { %>
+        <img src="<%= boss.image %>" alt="<%= boss.name || 'Boss' %>" class="rounded shadow w-full max-h-80 object-cover">
+      <% } else { %>
+        <div class="bg-gray-300 w-full h-64 rounded flex items-center justify-center text-gray-600">
+          No image available
+        </div>
+      <% } %>
+    </aside>
+
+    <section class="md:w-2/3">
+      <h1 class="text-3xl font-bold mb-2"><%= boss?.name || 'Unknown Boss' %></h1>
+      <p class="text-gray-700 mb-4"><%= boss?.description || 'No description available.' %></p>
+
+      <ul class="list-disc pl-5 space-y-2 text-gray-800">
+        <li><strong>Region:</strong> <%= boss?.region || 'Unknown' %></li>
+        <li><strong>Location:</strong> <%= boss?.location || 'Unknown' %></li>
+        <li><strong>Health:</strong> <%= boss?.healthPoints || 'Unknown' %></li>
+
+        <% if (Array.isArray(boss?.drops) && boss.drops.length > 0) { %>
+          <li>
+            <strong>Drops:</strong>
+            <ul class="list-disc pl-5">
+              <% boss.drops.forEach(drop => { %>
+                <li><%= drop %></li>
+              <% }) %>
+            </ul>
+          </li>
+        <% } else { %>
+          <li><strong>Drops:</strong> Unknown</li>
+        <% } %>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
