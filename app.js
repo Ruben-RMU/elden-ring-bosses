@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = 3011;
+const PORT = process.env.port || 3011;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
