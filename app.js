@@ -1,11 +1,15 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import fetch from 'node-fetch';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config();
 const app = express();
-const PORT = process.env.port || 3011;
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PORT = process.env.PORT;
+const apiUrl = process.env.API_URL;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -17,7 +21,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/bosses', async (req, res) => {
   try {
-    const response = await fetch('https://eldenring.fanapis.com/api/bosses?limit=100');
+    const response = await fetch(apiUrl);
     const data = await response.json();
     res.json(data);
   } catch (err) {
